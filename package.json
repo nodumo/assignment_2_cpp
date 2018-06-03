@@ -1,0 +1,16 @@
+{
+  "name": "CPP",
+  "version": "1.0.0",
+  "description": "CPP assignment.",
+  "main": "index.js",
+  "scripts": {
+    "watch1": "run-when-changed --watch '*.cpp' --exec 'g++ q1.cpp -o main && ./main'",
+    "watch2": "run-when-changed --watch '*.cpp' --exec 'g++ q2.cpp -o main && ./main'",
+    "watch3": "run-when-changed --watch '*.cpp' --exec 'g++ q3.cpp -o main && ./main'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "run-when-changed": "^2.1.0"
+  }
+}
