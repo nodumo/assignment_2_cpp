@@ -226,10 +226,4 @@ int main() {
 
 
 /*
-
-Write a program in which you create a Hen class.
- Inside this class, nest a Nest class. Inside Nest, place an Egg class.
-  Each class should have a display() member function.
-   For each class, create a constructor and a destructor that prints an appropriate message when it is called.
-    In main(), create an instance of each class using new and call the display() function for each one. After calling display(), free the storage using delete.
 Write a program in which you create a Text class that contains a string object to hold the text of a file. Give it two constructors: a default constructor and a constructor that takes a string argument that is the name of the file to open. When the second constructor is used, open the file and read the contents of the file into the string member object. Add a member function contents() to return the string so that you can display it. In main(), open a file using Text and display the contents.*/

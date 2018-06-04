@@ -77,7 +77,7 @@ int program (string testFile) {
     StringBuffer stringBuffer2 (testFile);
 
     cout << "stringBuffer1: \n '" << stringBuffer1.getRawString() << "'" << endl;
-    cout << "stringBuffer2: \n '" << stringBuffer2.getRawString() << "'"<< endl;
+    cout << "stringBuffer2: \n '" << stringBuffer2.getRawString() << "'" << endl;
 
     return 0;
 }
