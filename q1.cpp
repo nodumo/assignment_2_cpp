@@ -29,7 +29,8 @@ namespace csvreader {
             throw std::runtime_error("Missing file cannot read from:" + fileArraySourceName + ".");
         }
         while (!ifs.eof()) {
-            getline(ifs, line);
+            getline(ifs, line);  
+            
             listOfRows.push_back(line);
         }
         return listOfRows;
@@ -191,10 +192,10 @@ namespace dvdManagment {
         vector < string > csvRowsList = readLinesInFile(dvdFile);
         vector < vector < string > > csvParseRowsList = linesInFileToVectorOfCSVRowsAsVector(csvRowsList);
         for (int i = 0; i < csvParseRowsList.size(); i++) {
-            DVD dvd("Demo", "Demo1", "Demo1");
+            DVD dvd("Demo", "Demo1", "Demo1"); 
             listOfDVDs.push_back(dvd);
         }
-        DVDManager dvdManager(listOfDVDs);
+        DVDManager dvdManager(listOfDVDs); 
         return dvdManager;
     }
 
@@ -210,18 +211,17 @@ int DVD::dvdCounter = 1;
  * @param fileName - The name of the file to look for.
  */
 int main() {
-    vector < string > csvRowsList = readLinesInFile("demo.csv");
+    vector < string > csvRowsList = readLinesInFile("dvd.csv");
     vector < vector < string > > rr = linesInFileToVectorOfCSVRowsAsVector(csvRowsList);
-
-    //  cout << rr.at(3).at(1) << endl;;
-
+ 
     DVDManager dvdManager();
 
-    DVD dvd1("Demo", "Demo1", "Demo1");
-    DVD dvd2("Demo", "Demo1", "Demo1");
+    for (unsigned i=0; i < csvRowsList.size(); i++){ 
+        cout << "DVD 1 title : " << csvRowsList[i] << endl;
+    }     
 
-    cout << "DVD 1 title : " << dvd2.getDVDId() << endl;
     return 0;
+    
 }
 
 
