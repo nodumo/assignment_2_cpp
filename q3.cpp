@@ -8,15 +8,13 @@ using namespace std;
   * StringBuffer class.
   * Holds mutable buffer of string content.
   */
-class StringBuffer {
-
-    private:
-
+class StringBuffer
+{
+private:
     // Internal mutable store for strings
     string text;
 
-    public:
-
+public:
     /**
       * Construct with empty string.
       * @return void Side effecting function.
@@ -33,17 +31,18 @@ class StringBuffer {
     StringBuffer(string file)
     {
         string line;
-        ifstream srcFile (file.c_str());
-        if (!srcFile) {
+        ifstream srcFile(file.c_str());
+        if (!srcFile)
+        {
             throw std::runtime_error(buildMissingFileExceptionMessage(file));
         }
         if (srcFile.is_open())
         {
-           while (getline(srcFile,line))
-           {
-               text += line + '\n';
-           }
-           srcFile.close();
+            while (getline(srcFile, line))
+            {
+                text += line + '\n';
+            }
+            srcFile.close();
         }
     };
 
@@ -72,9 +71,10 @@ class StringBuffer {
   * Question 3 program.
   * Read create string buffer objects with both constructor and output text.
   */
-int program (string testFile) {
+int program(string testFile)
+{
     StringBuffer stringBuffer1;
-    StringBuffer stringBuffer2 (testFile);
+    StringBuffer stringBuffer2(testFile);
 
     cout << "stringBuffer1: \n '" << stringBuffer1.getRawString() << "'" << endl;
     cout << "stringBuffer2: \n '" << stringBuffer2.getRawString() << "'" << endl;
@@ -87,8 +87,8 @@ int program (string testFile) {
 /**
   * Run program
   */
-int main() {
-
+int main()
+{
     string TEST_FILE = "dvd.csv";
 
     return program(TEST_FILE);

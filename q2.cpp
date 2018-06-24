@@ -7,47 +7,56 @@ using namespace std;
   * StringBuffer class.
   * Holds mutable buffer of string content.
   */
-class Hen {
+class Hen
+{
 
-  public:
-
-    void display() {
-      cout << "Hen display called \n";
-    }
-  Hen() {
-    cout << "Hen constructor called \n";
-  }~Hen() {
-    cout << "Hen destructor called \n";
-  }
-
-  class Nest
-  {
-    public:
-
-      void display() {
-        cout << "Nest display called \n";
-      }
-    Nest() {
-      cout << "Nest constructor called \n";
-    }~Nest() {
-      cout << "Nest destructor called \n";
-    }
-
-    class Egg
-
+public:
+    Hen()
     {
-      public:
+        cout << "Hen constructor called" << endl;
+    }
+    ~Hen()
+    {
+        cout << "Hen destructor called" << endl;
+    }
+    void display()
+    {
+        cout << "Hen display called" << endl;
+    }
 
-        void display() {
-          cout << "Egg display called \n";
+    class Nest
+    {
+    public:
+        Nest()
+        {
+            cout << "Nest constructor called" << endl;
         }
-      Egg() {
-        cout << "Egg constructor called \n";
-      }~Egg() {
-        cout << "Egg destructor called \n";
-      };
+        ~Nest()
+        {
+            cout << "Nest destructor called" << endl;
+        }
+
+        void display()
+        {
+            cout << "Nest display called" << endl;
+        }
+        class Egg
+        {
+        public:
+            Egg()
+            {
+                cout << "Egg constructor called" << endl;
+            }
+            ~Egg()
+            {
+                cout << "Egg destructor called" << endl;
+            };
+            void display()
+            {
+                cout << "Egg display called" << endl;
+            }
+        };
     };
-  };
 };
 
 // ----- Program definition
@@ -56,11 +65,13 @@ class Hen {
   * Question 2 program.
   *
   */
-int program () {
+int program()
+{
 
     Hen hen;
     Hen::Nest nest;
     Hen::Nest::Egg egg;
+
 
     hen.display();
     nest.display();
@@ -74,6 +85,8 @@ int program () {
 /**
   * Run program
   */
-int main() {
-    return program();
+int main()
+{
+    program();
+    return 0;
 }
