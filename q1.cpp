@@ -76,7 +76,7 @@ vector<string> parse(string test, string Deli)
         parsed.push_back(x);
         token += test.find(Deli, token + 1) - (token - 1);
         test.find(Deli, token) != std::string::npos ? count++ : count;
-    }
+    } 
     return parsed;
 }
 }

@@ -4,9 +4,15 @@
   "description": "CPP assignment.",
   "main": "index.js",
   "scripts": {
+    
     "watch1": "run-when-changed --watch '*.cpp' --exec 'g++ q1.cpp -o main && ./main'",
     "watch2": "run-when-changed --watch '*.cpp' --exec 'g++ q2.cpp -o main && ./main'",
-    "watch3": "run-when-changed --watch '*.cpp' --exec 'g++ q3.cpp -o main && ./main'"
+    "watch3": "run-when-changed --watch '*.cpp' --exec 'g++ q3.cpp -o main && ./main'",
+
+    "watchA": "run-when-changed --watch '*.cpp' --exec 'g++ qA.cpp -o main && ./main'",
+    "watchB": "run-when-changed --watch '*.cpp' --exec 'g++ qB.cpp -o main && ./main'",
+    "watchC": "run-when-changed --watch '*.cpp' --exec 'g++ qC.cpp -o main && ./main'"
+
   },
   "author": "",
   "license": "ISC",
