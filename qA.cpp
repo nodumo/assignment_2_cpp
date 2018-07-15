@@ -1,4 +1,5 @@
-#include <ctime> 
+
+#include <ctime>
 #include <iostream>
 
 using namespace std;
@@ -6,23 +7,38 @@ using namespace std;
 // ----- Loggers
 
 /**
-  * Print program result.
+  *  Multiply values.
+  *  @param v - Value. 
+  */ 
+float multiplyNumbers(float v, float v2)
+{
+    return v * v2;
+}
+
+/**
+  *  Print program result.
+  *  @param programResutl - Program result. 
   */
 void printProgramResult(float result)
 {
-    cout << "Time taken to run Multiplication Program: " << result << "s" << endl;
+    string TIME_TAKE_TO_RUN_MSG = "Time taken to run Multiplication Program: ";
+    cout << TIME_TAKE_TO_RUN_MSG << result << "s" << endl;
 }
 
 /**
-  * Print program error message.
+  *  Print program error message.
   */
 void printProgramErrorMessaage()
 {
-    cout << "Program error. Unable to time program." << endl;
+    string PROGRAM_ERROR_MSG = "Program error. Unable to time program.";
+    cout << PROGRAM_ERROR_MSG << endl;
 }
 
 /**
-  * Print program multiplier result.
+  *  Print multiplication result.
+  *  @param result - Multuplication result. 
+  *  @param v1 - Value 1. 
+  *  @param v2 - Value 2.
   */
 void printMultiplierResult(int result, int v1, int v2)
 {
@@ -34,40 +50,36 @@ void printMultiplierResult(int result, int v1, int v2)
 /**
   * Run program and time.
   */
-void program()
+void program(bool isDebugMode, float arraySize, float startingValue)
 {
-    time_t now = time(0);
-
-    char* dt = ctime(&now);
-
-    int ARRAY_SIZE = 100;
-
-    int STARTING_VALUE = 10;
-
+    // range related values 
+    int ARRAY_SIZE = arraySize;
+    int STARTING_VALUE = startingValue;
+    
+    // forward iteration array and backward iteration array 
     int forwardArray[ARRAY_SIZE];
-
     int backwardArray[ARRAY_SIZE];
 
     for (int n = STARTING_VALUE; n < ARRAY_SIZE; n++) {
-        forwardArray[n] = n;
+        forwardArray[n]  = n;
         backwardArray[n] = (ARRAY_SIZE - n) - 1;
-
-        const double multiplicationResult = forwardArray[n] * backwardArray[n];
-
-        printMultiplierResult(multiplicationResult, forwardArray[n], backwardArray[n]);
+        const int multiplicationResult = multiplyNumbers(forwardArray[n], backwardArray[n]);
+        if (isDebugMode){
+            printMultiplierResult(multiplicationResult, forwardArray[n], backwardArray[n]);
+        }
     }
 }
 
 /**
   * Run program and time.
   */
-float timedProgram()
+float timedProgram(bool isDebugMode)
 {
 
     clock_t start, end, elapsed;
     start = clock();
 
-    program();
+    program(isDebugMode, 10000, 100); // run the program and time it
 
     end = clock();
     elapsed = end - start;
@@ -83,7 +95,7 @@ float timedProgram()
 int main()
 {
     try {
-        printProgramResult(timedProgram());
+        printProgramResult(timedProgram(true));
     }
     catch (...) {
         printProgramErrorMessaage();

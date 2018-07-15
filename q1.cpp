@@ -1,3 +1,72 @@
+
+/* 
+ Title: GoodDocs.cpp
+ Description: Saying Hello with C++
+ Date: January 3, 2009
+ Author: Richard S. Huntrods
+ Version: 1.0
+ Copyright: 2009 Richard S. Huntrods
+*/
+
+/*
+ DOCUMENTATION
+ 
+ Program Purpose:
+ 	Demonstrate proper format for documentation, test plans and comments.
+ 	Also demonstrate user prompts, keyboard input, simple calculations and output.
+
+ Compile (assuming Cygwin is running): g++ -o GoodDocs GoodDocs.cpp
+ Execution (assuming Cygwin is running): ./GoodDocs.exe
+ 
+ Notes: in Cygwin, main must return type int
+ 
+ Classes: none
+
+ Variables:
+ 	name - char array sized for 131 characters - used to store user's name (one word only)
+ 	age - int - used to store user's age as an integer number
+*/
+
+/*
+ TEST PLAN
+ 
+ Normal case:
+ 	>What is your name? Richard
+ 	>What is your age? 21
+ 	>Hello! My name is Richard, and I am 21 years old!
+ 	>In 10 years, I will be 31 years old!
+
+ Bad Data case 1 (more than one name)
+ 	>What is your name? Richard Huntrods
+ 	>What is your age? 21
+ 	>Hello! My name is Richard, and I am 21 years old!
+ 	>In 10 years, I will be 31 years old!
+ 
+ Bad Data case 2 (nonsense or non-alpha name)
+ 	>What is your name? zb23xx!
+ 	>What is your age? 21
+ 	>Hello! My name is zb23xx!, and I am 21 years old!
+ 	>In 10 years, I will be 31 years old!
+ 
+ Bad Data case 3 (negative age)
+ 	>What is your name? Richard
+ 	>What is your age? -1
+ 	>Hello! My name is Richard, and I am -1 years old!
+ 	>In 10 years, I will be 9 years old!
+ 
+ Bad Data case 4 (floating point age)
+ 	>What is your name? Richard
+ 	>What is your age? 12.5
+ 	>Hello! My name is Richard, and I am 12 years old!
+ 	>In 10 years, I will be 22 years old!
+ 
+ Discussion:
+ 	The program accepts only a single word for the name input (whitespace delimits the word - comma, space, period, etc.)
+ 	The program also attempts to convert the age input into an integer, even if this produces a nonsense result (i.e. 'five').
+ 	Negative numbers are allowed and processed as if legitimate, and floating point numbers are truncated.
+ 
+*/
+
 #include <iostream> // use Standard Input / Output Streams Library
 #include <fstream> // use input/output file stream class
 #include <sstream> // use input/output string stream
@@ -15,8 +84,7 @@ using std::vector; // vector standard
 /**
  * CSV reader  namespace
  */
-namespace csvreader
-{
+namespace csvreader {
 
 /**
    * Read lines in a file.
@@ -27,12 +95,10 @@ vector<string> readLinesInFile(string fileArraySourceName)
     vector<string> listOfRows;
     string line;
     ifstream ifs(fileArraySourceName.c_str());
-    if (!ifs)
-    {
+    if (!ifs) {
         throw std::runtime_error("Missing file cannot read from:" + fileArraySourceName + ".");
     }
-    while (!ifs.eof())
-    {
+    while (!ifs.eof()) {
         getline(ifs, line);
 
         listOfRows.push_back(line);
@@ -48,14 +114,12 @@ vector<vector<string> > linesInFileToVectorOfCSVRowsAsVector(vector<string> dvdD
 {
     vector<vector<string> > listOfCSVRows;
     string delimiter = ",";
-    for (int i = 0; i < dvdDat.size(); i++)
-    {
+    for (int i = 0; i < dvdDat.size(); i++) {
         vector<string> listOfCSVColumns;
         string currentString = dvdDat.at(1);
         size_t pos = 0;
         std::string token;
-        while ((pos = currentString.find(delimiter)) != string::npos)
-        {
+        while ((pos = currentString.find(delimiter)) != string::npos) {
             token = currentString.substr(0, pos);
             listOfCSVColumns.push_back(token);
             currentString.erase(0, pos + delimiter.length());
@@ -70,20 +134,18 @@ vector<string> parse(string test, string Deli)
     int count = 0;
     int token = 0;
     vector<string> parsed;
-    for (size_t i = 0; i <= count; i++)
-    {
+    for (size_t i = 0; i <= count; i++) {
         string x = (test.substr(token, test.find(Deli, token) - token));
         parsed.push_back(x);
         token += test.find(Deli, token + 1) - (token - 1);
         test.find(Deli, token) != std::string::npos ? count++ : count;
-    } 
+    }
     return parsed;
 }
 }
 
 // DVD managment namespace
-namespace dvdManagment
-{
+namespace dvdManagment {
 
 using namespace csvreader;
 
@@ -91,8 +153,7 @@ using namespace csvreader;
 /**
    * DVD value class.
    */
-class DVD
-{
+class DVD {
     // Semantically immutable values (i.e no setter)
 private:
     /* Tracks instances oft this class */
@@ -157,8 +218,7 @@ public:
 /**
    * DVDManager construct.
    */
-class DVDManager
-{
+class DVDManager {
 
 private:
     vector<DVD> dvdCheckoutList;
@@ -199,8 +259,7 @@ public:
      */
     void addDVDTOCheckoutList(vector<DVD> dvdList)
     {
-        for (int i = 0; i < dvdList.size(); i++)
-        {
+        for (int i = 0; i < dvdList.size(); i++) {
             dvdCheckoutList.push_back(dvdList.at(i));
         }
     };
@@ -210,8 +269,7 @@ public:
      */
     int removeDVDFromCheckoutListById()
     {
-        for (int i = 0; i < dvdCheckoutList.size(); i++)
-        {
+        for (int i = 0; i < dvdCheckoutList.size(); i++) {
             int currentDVD = 1;
         }
         return dvdCheckoutList.size();
@@ -219,9 +277,9 @@ public:
 };
 
 /**
-*Read CSV file into vector of CSV columns.
-*@param fileName - The name of the file to look for.
-*/
+ * Read CSV file into vector of CSV columns.
+ * @param fileName - The name of the file to look for.
+ */
 DVDManager buildDVDManagerFromFile(string dvdFile)
 {
     string DELIM = ",";
@@ -230,8 +288,7 @@ DVDManager buildDVDManagerFromFile(string dvdFile)
     vector<string> csvRowsList = readLinesInFile(dvdFile);
     vector<vector<string> > csvParseRowsList = linesInFileToVectorOfCSVRowsAsVector(csvRowsList);
 
-    for (int i = 0; i < csvParseRowsList.size(); i++)
-    {
+    for (int i = 0; i < csvParseRowsList.size(); i++) {
         string csvRowAsString = csvRowsList.at(i);
         vector<string> csvRowAsVector = parse(csvRowAsString, DELIM);
         DVD dvd(csvRowAsVector.at(0), csvRowAsVector.at(1), csvRowAsVector.at(2));
