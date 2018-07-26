@@ -1,19 +1,30 @@
 
 /* 
- Title: GoodDocs.cpp
- Description: Saying Hello with C++
- Date: January 3, 2009
- Author: Richard S. Huntrods
- Version: 1.0
- Copyright: 2009 Richard S. Huntrods
+    Title: GoodDocs.cpp
+    Description: Program for question 
+    Date: July 15, 2018
+    Author: Nickanor Odumo
+    Version: 1.0
+    Copyright: 2018 Nickanor Odumo
 */
 
 /*
  DOCUMENTATION
  
  Program Purpose:
- 	Demonstrate proper format for documentation, test plans and comments.
- 	Also demonstrate user prompts, keyboard input, simple calculations and output.
+ 	Write a program that creates a class hierarchy for simple geometry. 
+
+    a. Start with a Point class to hold x and y values of a point. Overload the >>
+    operator to print point values and the + and – operators to add and subtract
+    point coordinates (hint: keep x and y separate In the calculation). 
+
+    b. Create a base class Shape which will form the basis of your shapes. The Shape
+    class will contain functions to calculate area and circumference of the shape,
+    plus provide the coordinates (Points) of a rectangle that encloses the shape (a
+    bounding box). These will be overloaded by the derived classes as necessary.
+    Create a display() function that will display the name of the class plus all
+    stored information about the he class (including area, circumference, and
+    bounding box).
 
  Compile (assuming Cygwin is running): g++ -o GoodDocs GoodDocs.cpp
  Execution (assuming Cygwin is running): ./GoodDocs.exe
@@ -22,9 +33,10 @@
  
  Classes: none
 
+ Functions:
+
  Variables:
- 	name - char array sized for 131 characters - used to store user's name (one word only)
- 	age - int - used to store user's age as an integer number
+ 	
 */
 
 /*
@@ -66,14 +78,11 @@
  	Negative numbers are allowed and processed as if legitimate, and floating point numbers are truncated.
  
 */
-
-#include <ctime> 
 #include <iostream>
-#include <cmath>
 
 using namespace std;
 
-// ----- Types and Classes 
+// ----- Types and Classes
 
 /**
   * Question A
@@ -89,122 +98,210 @@ class Point {
       */
     int y;
     // ---- Public
-    public: 
-        Point(int xValue, int yValue) {
-            x = xValue;
-            y = yValue;
-        }
-        ~Point() {
-            
-        } 
-        int getX(){
-            return x;
-        }
-        int setX(int xValue) {
-            x = xValue; 
-        }
-        int getY(){
-            return y;
-        }
-        int setY(int yValue) { 
-            y = yValue;
-        }
+public:
+    Point(int xValue, int yValue)
+    {
+        x = xValue;
+        y = yValue;
+    }
+    ~Point()
+    {
+    }
+    int getX()
+    {
+        return x;
+    }
+    int setX(int xValue)
+    {
+        x = xValue;
+    }
+    int getY()
+    {
+        return y;
+    }
+    int setY(int yValue)
+    {
+        y = yValue;
+    }
+    // ---- Operators 
+    Point operator >> (Point& pt);
+    Point operator +(Point& pt);
+    Point operator -(Point& pt);
+};
 
-        Point operator+(Point& pt);
-	 	Point operator-(Point& pt);
+// (+) Addition operator
+Point Point::operator+(Point& pt)
+{ 
+    Point result = *this;
+    result.setX(result.getX() + pt.getX());
+    result.setY(result.getY() + pt.getY());
+    return result;
+};
+
+// (-) Subtration operator
+Point Point::operator-(Point& pt)
+{
+    Point result = *this;
+    result.setX(result.getX() - pt.getX());
+    result.setY(result.getY() - pt.getY());
+    return result;
 };
 
 
-// + Operator Overload   Works   
-Point Point::operator + (Point& pt) {
-	Point result = *this;
-	result.setX(result.getX() + pt.getX());
-	result.setY (result.getY() + pt.getY());
-	return result; 
-};
 
-// + Operator Overload   Works   
-Point Point::operator - (Point& pt) {
-	Point result = *this;
-	result.setX(result.getX() - pt.getX());
-	result.setY (result.getY() - pt.getY());
-	return result; 
+// (-) Subtration operator
+Point Point::operator>>(Point& pt)
+{
+    Point result = *this;
+    cout << result.getX() << "\n";
+    cout << result.getY() << "\n";
 };
-
 /**
   * Question B
   * Shape value.
   */
-class Shape {   
-    // ---- Private  
-    private:
+class Shape {
+    // ---- Private
+private:
     /**
       * Shape name  
       */
     string SHAPE_NAME;
-  
-    // ---- Public
-    public: 
 
-    string shapeName () {
+    // ---- Public
+public:
+
+    float getArea();
+
+    string shapeName()
+    {
         return SHAPE_NAME;
     }
-
+    /**
+      *  Tests if angle abc is a right angle
+      *  @param xValue - X value.  
+      *  @param yValue - Y value. 
+      */
+    int isOrthogonal(Point a, Point b, Point c)
+    {
+        return (b.getX() - a.getX()) * (b.getX() - c.getX()) + 
+               (b.getY() - a.getY()) * (b.getY() - c.getY()) == 0;
+    }
 };
 
-class Rectangle: public Shape {
-    // ---- Private 
-    private:
- 
+class Rectangle : public Shape {
+    // ---- Private
+private: 
     // ---- Public
-    public: 
-    
+public:
     /**
       *  Shape constructor.
       *  @param p1 - Point 1.  
       *  @param p2 - Point 2.  
       *  @param p3 - Point 3.   
       *  @param p4 - Point 4. 
-      */ 
-    Rectangle(Point p1, Point p2, Point p3, Point p4) {
+      */
+    Rectangle(Point p1, Point p2, Point p3, Point p4)
+    {
         string SHAPE_NAME = "Rectangle";
-    }  
-    
+    }
+
     /**
       *  Shape destructor.
       *  @param xValue - X value.  
       *  @param yValue - Y value. 
-      */ 
-    ~Rectangle() {
-        
-    }
-
-    /**
-      *  Tests if angle abc is a right angle
-      *  @param xValue - X value.  
-      *  @param yValue - Y value. 
-      */ 
-    int isOrthogonal(Point a, Point b, Point c)
+      */
+    ~Rectangle()
     {
-        return (b.getX() - a.getX()) * (b.getX() - c.getX()) + (b.getY() - a.getY()) * (b.getY() - c.getY()) == 0;
     }
 
     /**
       *  Tests if angle abc is a right angle
       *  @param xValue - X value.  
       *  @param yValue - Y value. 
-      */ 
+      */
     int isValidRectangle(Point a, Point b, Point c, Point d)
     {
-        return
-            isOrthogonal(a, b, c) &&
-            isOrthogonal(b, c, d) &&
-            isOrthogonal(c, d, a);
+        return isOrthogonal(a, b, c) && isOrthogonal(b, c, d) && isOrthogonal(c, d, a);
     }
-
 };
 
-// ----- Loggers
+
+class Triangle : public Shape {  
+    // ---- Private
+private: 
+    // ---- Public
+public:
+    /**
+      *  Shape constructor.
+      *  @param p1 - Point 1.  
+      *  @param p2 - Point 2.  
+      *  @param p3 - Point 3.   
+      *  @param p4 - Point 4. 
+      */
+    Triangle(Point p1, Point p2, Point p3, Point p4)
+    {
+        string SHAPE_NAME = "Triangle";
+    }
+
+    /**
+      *  Shape destructor.
+      *  @param xValue - X value.  
+      *  @param yValue - Y value. 
+      */
+    ~Triangle()
+    {
+    }
+
+    /**
+      *  Tests if angle abc is a right angle
+      *  @param xValue - X value.  
+      *  @param yValue - Y value. 
+      */
+    int isValidTriangle(Point a, Point b, Point c, Point d)
+    {
+        return isOrthogonal(a, b, c) && isOrthogonal(b, c, d) && isOrthogonal(c, d, a);
+    }
+};
+
+
+class Circle : public Shape {
+    // ---- Private
+private: 
+    // ---- Public
+public:
+    /**
+      *  Shape constructor.
+      *  @param p1 - Point 1.  
+      *  @param p2 - Point 2.  
+      *  @param p3 - Point 3.   
+      *  @param p4 - Point 4. 
+      */
+    Circle(Point p1, Point p2, Point p3, Point p4)
+    {
+        string SHAPE_NAME = "Circle";
+    }
+
+    /**
+      *  Shape destructor.
+      *  @param xValue - X value.  
+      *  @param yValue - Y value. 
+      */
+    ~Circle()
+    {
+    }
+
+    /**
+      *  Tests if angle abc is a right angle
+      *  @param xValue - X value.  
+      *  @param yValue - Y value. 
+      */
+    int isValidCircle(Point a, Point b, Point c, Point d)
+    {
+        return isOrthogonal(a, b, c) && isOrthogonal(b, c, d) && isOrthogonal(c, d, a);
+    }
+
+}; 
 
 // ----- Programs
 
@@ -213,7 +310,7 @@ class Rectangle: public Shape {
   */
 void program()
 {
-
+    Point point = Point(1,2);
 }
 
 // ----- Application entry
@@ -222,11 +319,11 @@ void program()
   * Run program
   */
 int main()
-{
+{   
     try {
-          cout << 1 << endl;
+        program();
     }
     catch (...) {
-       
     }
 }
+

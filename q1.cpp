@@ -1,19 +1,24 @@
 
 /* 
- Title: GoodDocs.cpp
- Description: Saying Hello with C++
- Date: January 3, 2009
- Author: Richard S. Huntrods
- Version: 1.0
- Copyright: 2009 Richard S. Huntrods
+    Title: GoodDocs.cpp
+    Description: Program for question 
+    Date: July 15, 2018
+    Author: Nickanor Odumo
+    Version: 1.0
+    Copyright: 2018 Nickanor Odumo
 */
 
 /*
  DOCUMENTATION
  
  Program Purpose:
- 	Demonstrate proper format for documentation, test plans and comments.
- 	Also demonstrate user prompts, keyboard input, simple calculations and output.
+ 	Write a program to manage dvd rental in a video rental store. Create an abstract
+    data type that represents a dvd in this store. Consider all the data and
+    operations that may be necessary for the dvd type to work well within a rental
+    management system. Include a print() member function that displays all the
+    information about the dvd. Test your data type by creating an array of ten dvd
+    instances and filling them using information read from a test input file that
+    you create. Display the dvd information.
 
  Compile (assuming Cygwin is running): g++ -o GoodDocs GoodDocs.cpp
  Execution (assuming Cygwin is running): ./GoodDocs.exe
@@ -22,14 +27,15 @@
  
  Classes: none
 
+ Functions:
+
  Variables:
- 	name - char array sized for 131 characters - used to store user's name (one word only)
- 	age - int - used to store user's age as an integer number
+ 	
 */
 
 /*
  TEST PLAN
- 
+   
  Normal case:
  	>What is your name? Richard
  	>What is your age? 21
@@ -84,33 +90,34 @@ using std::vector; // vector standard
 /**
  * CSV reader  namespace
  */
-namespace csvreader {
+namespace csv_reader {
+
 
 /**
    * Read lines in a file.
-   * @param fileArraySourceName - The name of the file to read
+   * @param file_array_source_name - The name of the file to read
    */
-vector<string> readLinesInFile(string fileArraySourceName)
+vector<string> read_lines_in_file(string file_array_source_name)
 {
-    vector<string> listOfRows;
+    vector<string> list_of_rows;
     string line;
-    ifstream ifs(fileArraySourceName.c_str());
+    ifstream ifs(file_array_source_name.c_str());
     if (!ifs) {
-        throw std::runtime_error("Missing file cannot read from:" + fileArraySourceName + ".");
+        throw std::runtime_error("Missing file cannot read from:" + file_array_source_name + ".");
     }
     while (!ifs.eof()) {
         getline(ifs, line);
 
-        listOfRows.push_back(line);
+        list_of_rows.push_back(line);
     }
-    return listOfRows;
+    return list_of_rows;
 }
 
 /**
    * Read CSV file into vector of CSV columns as vector.
    * @param dvdData - The name of the file to look for.
    */
-vector<vector<string> > linesInFileToVectorOfCSVRowsAsVector(vector<string> dvdDat)
+vector<vector<string> > linesIn_file_to_vector_of_csv_rows_as_vector(vector<string> dvdDat)
 {
     vector<vector<string> > listOfCSVRows;
     string delimiter = ",";
@@ -129,180 +136,205 @@ vector<vector<string> > linesInFileToVectorOfCSVRowsAsVector(vector<string> dvdD
     return listOfCSVRows;
 }
 
-vector<string> parse(string test, string Deli)
+vector<string> parse(string test, string delimeter_char)
 {
-    int count = 0;
+    int count = 0; 
     int token = 0;
     vector<string> parsed;
     for (size_t i = 0; i <= count; i++) {
-        string x = (test.substr(token, test.find(Deli, token) - token));
+        string x = (test.substr(token, test.find(delimeter_char, token) - token));
         parsed.push_back(x);
-        token += test.find(Deli, token + 1) - (token - 1);
-        test.find(Deli, token) != std::string::npos ? count++ : count;
+        token += test.find(delimeter_char, token + 1) - (token - 1);
+        test.find(delimeter_char, token) != std::string::npos ? count++ : count;
     }
     return parsed;
 }
 }
 
-// DVD managment namespace
-namespace dvdManagment {
+// dvd managment namespace
+namespace dvd_managment {
 
-using namespace csvreader;
+using namespace csv_reader;
 
 // ----- Classes
 /**
-   * DVD value class.
+   * dvd value class.
    */
-class DVD {
+class dvd {
     // Semantically immutable values (i.e no setter)
 private:
     /* Tracks instances oft this class */
-    static int dvdCounter;
+    static int dvd_counter;
     string title;
     string author;
     string subject;
-    int dvdId;
+    int dvd_id;
     /**
-     * Construct DVD.
-     * @param titleValue - Set title value.
-     * @param authorValue - Set author value.
-     * @param subjectValue - Set subjectValue.
+     * Construct dvd.
+     * @param title_value - Set title value.
+     * @param author_value - Set author value.
+     * @param subject_value - Set subject_value.
      */
 public:
-    DVD(string titleValue, string authorValue, string subjectValue)
+    dvd(string title_value, string author_value, string subject_value)
     {
-        title = titleValue;
-        author = authorValue;
-        subject = subjectValue;
-        dvdId = dvdCounter;
+        title = title_value;
+        author = author_value;
+        subject = subject_value;
+        dvd_id = dvd_counter;
         // static side-effects
-        dvdCounter++;
+        dvd_counter++;
     };
     /**
-     * Get DVD title.
+     * Get dvd title.
      */
     string getTitle()
     {
         return title;
     };
     /**
-     * Get DVD author.
+     * Get dvd author.
      */
     string getAuthor()
     {
         return author;
     };
     /**
-     * Get DVD subject.
+     * Get dvd subject.
      */
     string getSubject()
     {
         return subject;
     };
     /**
-     * Get DVD id.
+     * Get dvd id.
      */
     int getDVDId()
     {
-        return dvdId;
+        return dvd_id;
     };
     /**
-     * Get DVD counter value.
+     * Get dvd counter value.
      */
     int getDVDCounterVal()
     {
-        return dvdCounter;
+        return dvd_counter;
+    };
+    /**
+     * Display DVD information
+     */
+    void display()
+    {
+        cout << getDVDId() << endl; 
+        cout << getTitle() << endl; 
+        cout << getAuthor() << endl; 
+        cout << getSubject() << endl; 
     };
 };
 
 /**
-   * DVDManager construct.
+   * dvd_manager construct.
    */
-class DVDManager {
+class dvd_manager {
 
 private:
-    vector<DVD> dvdCheckoutList;
+    vector<dvd> dvd_checkout_list;
 
 public:
     /**
-       * Construct a DVD manager.
+       * Construct a dvd manager.
        * @param fileName - The name of the file to look for.
        */
-    DVDManager()
+    dvd_manager()
     {
     }
     /**
-       * Construct a DVD manager with a list of dvds.
+       * Construct a dvd manager with a list of dvds.
        * @param fileName - The name of the file to look for.
        */
-    DVDManager(vector<DVD> dvdCheckoutListValue)
+    dvd_manager(vector<dvd> dvdCheckoutList_value)
     {
-        dvdCheckoutList = dvdCheckoutListValue;
+        dvd_checkout_list = dvdCheckoutList_value;
     }
     /**
        * Get checkout list count.
        */
-    int getDVDCheckoutListCount()
+    int get_dvd_checkout_list_count()
     {
-        return dvdCheckoutList.size();
+        return dvd_checkout_list.size();
     };
     /**
-     * Add DVD to checkout list.
+     * Add dvd to checkout list.
      */
-    void addDVDTOCheckoutList(DVD dvd)
+    void add_dvd_to_checkout_listt(dvd dvd)
     {
-        dvdCheckoutList.push_back(dvd);
+        dvd_checkout_list.push_back(dvd);
     };
     /**
-     * Add DVD(s) to checkout list.
+     * Add dvd(s) to checkout list.
      * @param fileName - The name of the file to look for.
      */
-    void addDVDTOCheckoutList(vector<DVD> dvdList)
+    void add_dvd_to_checkout_listt(vector<dvd> dvdList)
     {
         for (int i = 0; i < dvdList.size(); i++) {
-            dvdCheckoutList.push_back(dvdList.at(i));
+            dvd_checkout_list.push_back(dvdList.at(i));
         }
     };
     /**
-     * Remove DVD from checkout list by Id.
+     * Remove dvd from checkout list by Id.
      * @param fileName - The name of the file to look for.
      */
-    int removeDVDFromCheckoutListById()
+    int remove_dvd_from_checkout_list_by_id()
     {
-        for (int i = 0; i < dvdCheckoutList.size(); i++) {
+        for (int i = 0; i < dvd_checkout_list.size(); i++) {
             int currentDVD = 1;
         }
-        return dvdCheckoutList.size();
+        return dvd_checkout_list.size();
     };
+    /**
+     * Display inventory.
+     */
+    void display_inventory () { 
+        string SEPERATOR = "_____________________________";
+        for (int i = 0; i < dvd_checkout_list.size(); i++) {
+            cout << SEPERATOR << endl; 
+            dvd_checkout_list.at(i).display();
+            cout << SEPERATOR << endl; 
+        }
+    }
 };
 
 /**
  * Read CSV file into vector of CSV columns.
  * @param fileName - The name of the file to look for.
  */
-DVDManager buildDVDManagerFromFile(string dvdFile)
-{
+dvd_manager build_dvd_manager_from_file(string dvd_file)
+{   // helpers 
     string DELIM = ",";
+    
+    // setup aggregator 
+    vector<dvd> list_of_dvds;
+    vector<string> csvRowsList = read_lines_in_file(dvd_file);
+    vector<vector<string> > csv_parse_rows_list = linesIn_file_to_vector_of_csv_rows_as_vector(csvRowsList);
 
-    vector<DVD> listOfDVDs;
-    vector<string> csvRowsList = readLinesInFile(dvdFile);
-    vector<vector<string> > csvParseRowsList = linesInFileToVectorOfCSVRowsAsVector(csvRowsList);
-
-    for (int i = 0; i < csvParseRowsList.size(); i++) {
-        string csvRowAsString = csvRowsList.at(i);
-        vector<string> csvRowAsVector = parse(csvRowAsString, DELIM);
-        DVD dvd(csvRowAsVector.at(0), csvRowAsVector.at(1), csvRowAsVector.at(2));
-        listOfDVDs.push_back(dvd);
+    for (int i = 0; i < csv_parse_rows_list.size(); i++) {
+        string csv_row_as_string = csvRowsList.at(i);
+        vector<string> csv_row_as_vector = parse(csv_row_as_string, DELIM);
+        dvd dvd(csv_row_as_vector.at(0), csv_row_as_vector.at(1), csv_row_as_vector.at(2));
+        list_of_dvds.push_back(dvd);
     }
-    DVDManager dvdManager(listOfDVDs);
-    return dvdManager;
-}
-}
 
-using namespace dvdManagment;
-using namespace csvreader;
 
-int DVD::dvdCounter = 1;
+    dvd_manager dvd_manager(list_of_dvds);
+    
+    return dvd_manager;
+}
+}  
+
+using namespace dvd_managment;
+using namespace csv_reader;
+
+int dvd::dvd_counter = 1;
 
 /**
  * Read CSV file into vector of CSV columns.
@@ -310,14 +342,12 @@ int DVD::dvdCounter = 1;
  */
 int main()
 {
-    string CSVFileName = "dvd.csv";
+    string csv_file_namee = "dvd.csv";
 
-    DVDManager dvdManager = buildDVDManagerFromFile(CSVFileName);
+    dvd_manager manager = build_dvd_manager_from_file(csv_file_namee);
 
-    /*
-    for (unsigned int i = 0; i < csvRowsList.size(); i++) {
-        cout << "DVD 1 title : " << endl;
-    } */
-    cout << "DVD 1 title : " << endl;
+    manager.display_inventory();
+    
     return 0;
 }
+ 

@@ -1,30 +1,39 @@
 
+
 /* 
- Title: GoodDocs.cpp
- Description: Saying Hello with C++
- Date: January 3, 2009
- Author: Richard S. Huntrods
- Version: 1.0
- Copyright: 2009 Richard S. Huntrods
+    Title: GoodDocs.cpp
+    Description: Program for question 
+    Date: July 15, 2018
+    Author: Nickanor Odumo
+    Version: 1.0
+    Copyright: 2018 Nickanor Odumo
 */
 
 /*
  DOCUMENTATION
  
  Program Purpose:
- 	Demonstrate proper format for documentation, test plans and comments.
- 	Also demonstrate user prompts, keyboard input, simple calculations and output.
+ 	Write a program in which you create a Hen class. Inside this class, nest a Nest
+    class. Inside Nest, place an Egg class. Each class should have a display()
+    member function. For each class, create a constructor and a destructor that
+    prints an appropriate message when it is called. In main(), create an instance
+    of each class using new and call the display() function for each one. After
+    calling display(), free the storage using delete.
 
  Compile (assuming Cygwin is running): g++ -o GoodDocs GoodDocs.cpp
- Execution (assuming Cygwin is running): ./GoodDocs.exe
+ Execution (assuming Cygwin is running): ./GoodDocs.exe  
  
  Notes: in Cygwin, main must return type int
  
  Classes: none
 
+ Functions:
+ 	
+ 	
+
  Variables:
- 	name - char array sized for 131 characters - used to store user's name (one word only)
- 	age - int - used to store user's age as an integer number
+ 	
+ 	
 */
 
 /*
@@ -69,6 +78,7 @@
 
 #include <iostream>
 
+using std;
 using std::cout; // use for control output to a stream buffer
 using std::cin; // use standard input stream
 using std::endl; // use standard end line
@@ -189,11 +199,6 @@ public:
 void program()
 { 
 
-    while(true)
-{
-	cout << "I am inside loop" << endl;
-}
-
     // instantiate classes
     Hen hen;
     Hen::Nest nest;
@@ -203,15 +208,17 @@ void program()
     hen.display();
     nest.display();
     egg.display();
+
+   
 }
 
-// ----- Application entry
+// ----- Application entry 
 
 /**
   * Run program
   */
 int main()
 {
-    program();
+    program(); 
     return 0;
 }

@@ -1,30 +1,40 @@
 
 /* 
- Title: GoodDocs.cpp
- Description: Saying Hello with C++
- Date: January 3, 2009
- Author: Richard S. Huntrods
- Version: 1.0
- Copyright: 2009 Richard S. Huntrods
+    Title: StringBuffer.cpp
+    Description: Program for question 
+    Date: July 15, 2018
+    Author: Nickanor Odumo
+    Version: 1.0
+    Copyright: 2018 Nickanor Odumo
 */
 
 /*
  DOCUMENTATION
  
  Program Purpose:
- 	Demonstrate proper format for documentation, test plans and comments.
- 	Also demonstrate user prompts, keyboard input, simple calculations and output.
+ 	Write a program in which you create a Text class that contains a string object
+    to hold the text of a file. Give it two constructors: a default constructor and
+    a constructor that takes a string argument that is the name of the file to open.
+    When the second constructor is used, open the file and read the contents of the
+    file into the string member object. Add a member function contents() to return
+    the string so that you can display it. In main(), open a file using Text and
+    display the contents.
 
- Compile (assuming Cygwin is running): g++ -o GoodDocs GoodDocs.cpp
- Execution (assuming Cygwin is running): ./GoodDocs.exe
+ Compile (assuming Cygwin is running): g++ -o StringBuffer StringBuffer.cpp
+    Execution (assuming Cygwin is running): ./StringBuffer.exe
  
- Notes: in Cygwin, main must return type int
+ Notes: in Cygwin, main must return type intz
  
- Classes: none
+ Classes: 
+    StringBuffer
+
+ Functions:
+    program (string -> ) Application method
+    main (->) Program main method
 
  Variables:
- 	name - char array sized for 131 characters - used to store user's name (one word only)
- 	age - int - used to store user's age as an integer number
+ 	
+ 	
 */
 
 /*
@@ -88,9 +98,7 @@ public:
       * Construct with empty string.
       * @return void Side effecting function.
       */
-    StringBuffer(){
-
-    };
+    StringBuffer(){};
 
     /**
       * Constuct with file as data.
@@ -103,10 +111,10 @@ public:
         ifstream srcFile(file.c_str());
         if (!srcFile)
         {
-            throw std::runtime_error(buildMissingFileExceptionMessage(file));
+            throw runtime_error(buildMissingFileExceptionMessage(file));
         }
         if (srcFile.is_open())
-        {
+        {  
             while (getline(srcFile, line))
             {
                 text += line + '\n';
@@ -122,6 +130,14 @@ public:
     string getRawString()
     {
         return text;
+    }
+
+    /**
+      * Log context. 
+      */
+    void logRawString(string context)
+    {
+        cout << context << "\n '" << getRawString() << "'" << endl;
     }
 
     /**
@@ -145,9 +161,9 @@ int program(string testFile)
     StringBuffer stringBuffer1;
     StringBuffer stringBuffer2(testFile);
 
-    cout << "stringBuffer1: \n '" << stringBuffer1.getRawString() << "'" << endl;
-    cout << "stringBuffer2: \n '" << stringBuffer2.getRawString() << "'" << endl;
-
+    stringBuffer1.logRawString("stringBuffer1");
+    stringBuffer2.logRawString("stringBuffer2");
+    
     return 0;
 }
 

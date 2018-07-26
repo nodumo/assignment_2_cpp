@@ -1,19 +1,21 @@
 
 /* 
- Title: GoodDocs.cpp
- Description: Saying Hello with C++
- Date: January 3, 2009
- Author: Richard S. Huntrods
- Version: 1.0
- Copyright: 2009 Richard S. Huntrods
+    Title: GoodDocs.cpp
+    Description: Program for question 
+    Date: July 15, 2018
+    Author: Nickanor Odumo
+    Version: 1.0
+    Copyright: 2018 Nickanor Odumo
 */
 
 /*
  DOCUMENTATION
  
  Program Purpose:
- 	Demonstrate proper format for documentation, test plans and comments.
- 	Also demonstrate user prompts, keyboard input, simple calculations and output.
+ 	Rewrite program 1 using an inline function to perform the calculation. In the
+    test plan for this program (actual results section), compare the time required
+    by this program to execute against the time required by the first (non-inline)
+    program.
 
  Compile (assuming Cygwin is running): g++ -o GoodDocs GoodDocs.cpp
  Execution (assuming Cygwin is running): ./GoodDocs.exe
@@ -22,9 +24,11 @@
  
  Classes: none
 
+ Functions:
+ 	
  Variables:
- 	name - char array sized for 131 characters - used to store user's name (one word only)
- 	age - int - used to store user's age as an integer number
+ 	
+ 	
 */
 
 /*
@@ -77,7 +81,7 @@ using namespace std;
 /**
   * Print program result.
   */
-void printProgramResult(float result)
+void print_timed_program_result(float result)
 {
     cout << "Time taken to run Multiplication Program: " << result << "s" << endl;
 }
@@ -85,7 +89,7 @@ void printProgramResult(float result)
 /**
   * Print program error message.
   */
-void printProgramErrorMessaage()
+void print_program_error_message()
 {
     cout << "Program error. Unable to time program." << endl;
 }
@@ -93,7 +97,7 @@ void printProgramErrorMessaage()
 /**
   * Print program multiplier result.
   */
-void printMultiplierResult(int result, int v1, int v2)
+void print_multiplier_result(int result, int v1, int v2)
 {
     cout << result << " = " << v1 << " * " << v2 << endl;
 }
@@ -113,24 +117,24 @@ void program()
 
     int STARTING_VALUE = 10;
 
-    int forwardArray[ARRAY_SIZE];
+    int forward_array[ARRAY_SIZE];
 
-    int backwardArray[ARRAY_SIZE];
+    int backward_array[ARRAY_SIZE];
 
     for (int n = STARTING_VALUE; n < ARRAY_SIZE; n++) {
-        forwardArray[n] = n;
-        backwardArray[n] = (ARRAY_SIZE - n) - 1;
+        forward_array[n] = n;
+        backward_array[n] = (ARRAY_SIZE - n) - 1;
 
-        const double multiplicationResult = forwardArray[n] * backwardArray[n];
+        const double multiplication_result = forward_array[n] * backward_array[n];
 
-        printMultiplierResult(multiplicationResult, forwardArray[n], backwardArray[n]);
+        print_multiplier_result(multiplication_result, forward_array[n], backward_array[n]);
     }
 }
 
 /**
   * Run program and time.
   */
-float timedProgram()
+float timed_program()
 {
 
     clock_t start, end, elapsed;
@@ -152,9 +156,9 @@ float timedProgram()
 int main()
 {
     try {
-        printProgramResult(timedProgram());
+        print_timed_program_result(timed_program());
     }
     catch (...) {
-        printProgramErrorMessaage();
+        print_program_error_message();
     }
 }
