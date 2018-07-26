@@ -8,7 +8,7 @@
     Version: 1.0
     Copyright: 2018 Nickanor Odumo
 */
-
+ 
 /*
  DOCUMENTATION
  
@@ -25,15 +25,17 @@
  
  Notes: in Cygwin, main must return type int
  
- Classes: none
+ Classes: 
+    Hen - Hen outer class. 
+    Nest - Nest inner class.
+    Egg  - Egg inner-most class.
 
  Functions:
- 	
- 	
+    program (string -> ) Application method
+    main (->) Program main method
 
  Variables:
- 	
- 	
+ 	 	
 */
 
 /*

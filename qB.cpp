@@ -25,7 +25,9 @@
  Classes: none
 
  Functions:
- 	
+ 	program (string -> ) Application method
+    main (->) Program main method
+
  Variables:
  	
  	

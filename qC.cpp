@@ -31,9 +31,16 @@
  
  Notes: in Cygwin, main must return type int
  
- Classes: none
+ Classes: 
+    Point - Point unit.
+    Shape - Ubstract class.
+    Circle - Specialized shape.
+    Square - Specialized shape.
+    Triangle - Specialized shape.
 
  Functions:
+    program (string -> ) Application method
+    main (->) Program main method
 
  Variables:
  	
