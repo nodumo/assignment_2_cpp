@@ -129,10 +129,11 @@ public:
     string getRawString()
     {
         return text;
-    }
+    } 
 
     /**
       * Log context. 
+      * Log buffer content and prepend the context of which entity's content is being logged.
       */
     void logRawString(string context)
     {
@@ -165,7 +166,7 @@ int program(string testFile)
     
     return 0;
 }
-
+  
 // ----- Application entry
 
 /**

@@ -162,23 +162,23 @@ void program(bool is_debug_mode, float array_size, float starting_value)
 float timed_program(bool is_debug_mode)
 {
 
-    clock_t start, end, elapsed;
-    start = clock();
+    const clock_t start = clock();
 
     program(is_debug_mode, 10000, 100); // run the program and time it
 
-    end = clock();
-    elapsed = end - start;
+    const clock_t end = clock();
 
-    return ((float)elapsed) / CLOCKS_PER_SEC;
+    const clock_t elapsed = end - start;
+
+    return ((float)elapsed) / CLOCKS_PER_SEC; 
 }
-
+ 
 // ----- Application entry
-
+ 
 /**
   * Run program
   */
-int main()
+int main() 
 {   bool IS_DEBUG = true;
     try {
         print_program_result(timed_program(IS_DEBUG));

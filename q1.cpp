@@ -25,12 +25,15 @@
  
  Notes: in Cygwin, main must return type int
  
- Classes: none
+ Classes:
+    dvd 
+    dvd_manager
 
  Functions:
     program (string -> ) Application method
     main (->) Program main method
-
+    
+    
  Variables:
  	
 */
@@ -39,40 +42,40 @@
  TEST PLAN
    
  Normal case:
- 	>What is your name? Richard
- 	>What is your age? 21
- 	>Hello! My name is Richard, and I am 21 years old!
- 	>In 10 years, I will be 31 years old!
+ 	> 
+    6
+    7af73174360ff4e03c475449
+    Coash
+    Kathy Rowland
 
- Bad Data case 1 (more than one name)
- 	>What is your name? Richard Huntrods
- 	>What is your age? 21
- 	>Hello! My name is Richard, and I am 21 years old!
- 	>In 10 years, I will be 31 years old!
- 
- Bad Data case 2 (nonsense or non-alpha name)
- 	>What is your name? zb23xx!
- 	>What is your age? 21
- 	>Hello! My name is zb23xx!, and I am 21 years old!
- 	>In 10 years, I will be 31 years old!
- 
- Bad Data case 3 (negative age)
- 	>What is your name? Richard
- 	>What is your age? -1
- 	>Hello! My name is Richard, and I am -1 years old!
- 	>In 10 years, I will be 9 years old!
- 
- Bad Data case 4 (floating point age)
- 	>What is your name? Richard
- 	>What is your age? 12.5
- 	>Hello! My name is Richard, and I am 12 years old!
- 	>In 10 years, I will be 22 years old!
- 
+ Bad Data case 1 (bad file image  [change 'csv_file_namee'  to 'not_text.jpg'])
+ 	> terminate called after throwing an instance of 'std::out_of_range'
+      what():  vector::_M_range_check: __n (which is 2) >= this->size() (which is 1)
+      Aborted (core dumped)
+
+ Bad Data case 2 (bad file unexplected input, random garbage  [change 'csv_file_namee'  to 'dvd_garbage.vcsv'])
+ 	> terminate called after throwing an instance of 'std::out_of_range'
+    what():  vector::_M_range_check: __n (which is 2) >= this->size() (which is 1)
+    Aborted (core dumped)
+
+ Bad Data case 3 (missing file [change 'csv_file_namee'  to 'node'])
+    > terminate called after throwing an instance of 'std::runtime_error'
+    what():  Missing file cannot read from:node.
+    Aborted (core dumped)
+
+    
  Discussion:
- 	The program accepts only a single word for the name input (whitespace delimits the word - comma, space, period, etc.)
- 	The program also attempts to convert the age input into an integer, even if this produces a nonsense result (i.e. 'five').
- 	Negative numbers are allowed and processed as if legitimate, and floating point numbers are truncated.
+ 	The program is partially modelled as a procderal imperative program and partially an object oriented program.
+    The procedural part of the program is comprised of the File IO and CSV program.
+    The object oriented program is comprised of a class that models dvd and a class that manages the rental of the dvds.
  
+    The dvd class models dvd entitites as a contained unit represeting the dvd. 
+    This class displays the dvd and uses an internal counter to track instances of the dvd variable.
+
+    The dvd manager class models dvd entitites as a contained unit represeting the dvd.
+    The dvd manager is tasked with holding a collection of dvds. The manager leverages the external/global procedural code to 
+    populate the dvd manafer from the file. This is a side-effecting constructor that may introduce an error.
+
 */
 
 #include <iostream> // use Standard Input / Output Streams Library
@@ -187,7 +190,10 @@ public:
         // static side-effects
         dvd_counter++;
     };
-    /**
+    ~dvd(){
+     
+    }
+    /** 
      * Get dvd title.
      */
     string getTitle()
@@ -336,12 +342,13 @@ dvd_manager build_dvd_manager_from_file(string dvd_file)
 using namespace dvd_managment;
 using namespace csv_reader;
 
-int dvd::dvd_counter = 1;
 
+int dvd::dvd_counter = 0;
+  
 /**
  * Read CSV file into vector of CSV columns.
  * @param fileName - The name of the file to look for.
- */
+ */ 
 int main()
 {
     string csv_file_namee = "dvd.csv";
@@ -352,4 +359,4 @@ int main()
     
     return 0;
 }
- 
+  

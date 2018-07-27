@@ -1,4 +1,3 @@
-
 /* 
     Title: GoodDocs.cpp
     Description: Program for question 
@@ -25,12 +24,16 @@
  Classes: none
 
  Functions:
- 	program (string -> ) Application method
+    program (string -> ) Application method
+    main (->) Program main method
+    program (string -> ) Application method
+    main (->) Program main method 
+    program (string -> ) Application method
     main (->) Program main method
 
+ 	
  Variables:
- 	
- 	
+ 	 	
 */
 
 /*
@@ -73,7 +76,7 @@
  
 */
 
-#include <ctime> 
+#include <ctime>
 #include <iostream>
 
 using namespace std;
@@ -81,23 +84,39 @@ using namespace std;
 // ----- Loggers
 
 /**
-  * Print program result.
-  */
-void print_timed_program_result(float result)
+  *  Multiply values.
+  *  @param v1 - Value1. 
+  *  @param v2 - Value2. 
+  */ 
+float multiply_numbers(float v1, float v2)
 {
-    cout << "Time taken to run Multiplication Program: " << result << "s" << endl;
+    return v1 * v2;
 }
 
 /**
-  * Print program error message.
+  *  Print program result.
+  *  @param programResutl - Program result. 
+  */
+void print_program_result(float result)
+{
+    string TIME_TAKE_TO_RUN_MSG = "Time taken to run Multiplication Program: ";
+    cout << TIME_TAKE_TO_RUN_MSG << result << "s" << endl;
+}
+
+/**
+  *  Print program error message.
   */
 void print_program_error_message()
 {
-    cout << "Program error. Unable to time program." << endl;
+    string PROGRAM_ERROR_MSG = "Program error. Unable to time program.";
+    cout << PROGRAM_ERROR_MSG << endl;
 }
 
 /**
-  * Print program multiplier result.
+  *  Print multiplication result.
+  *  @param result - Multuplication result. 
+  *  @param v1 - Value 1. 
+  *  @param v2 - Value 2.
   */
 void print_multiplier_result(int result, int v1, int v2)
 {
@@ -107,58 +126,62 @@ void print_multiplier_result(int result, int v1, int v2)
 // ----- Programs
 
 /**
-  * Run program and time.
+  *  Run program and time.
+  *  @param result - Multuplication result. 
+  *  @param v1 - Value 1. 
+  *  @param v2 - Value 2.
   */
-void program()
+void program(bool is_debug_mode, float array_size, float starting_value)
 {
-    time_t now = time(0);
-
-    char* dt = ctime(&now);
-
-    int ARRAY_SIZE = 100;
-
-    int STARTING_VALUE = 10;
-
+    // range related values 
+    int ARRAY_SIZE = array_size;
+    int STARTING_VALUE = starting_value;
+    
+    // forward iteration array and backward iteration array 
     int forward_array[ARRAY_SIZE];
-
     int backward_array[ARRAY_SIZE];
 
     for (int n = STARTING_VALUE; n < ARRAY_SIZE; n++) {
-        forward_array[n] = n;
+        // build up array 
+        forward_array[n]  = n;
         backward_array[n] = (ARRAY_SIZE - n) - 1;
-
-        const double multiplication_result = forward_array[n] * backward_array[n];
-
-        print_multiplier_result(multiplication_result, forward_array[n], backward_array[n]);
+   
+        // multiplication result 
+        const int multiplication_result = multiply_numbers(forward_array[n], backward_array[n]);
+   
+        // if debug mode go ahead and log the result
+        if (is_debug_mode){
+            print_multiplier_result(multiplication_result, forward_array[n], backward_array[n]);
+        }
     }
 }
 
 /**
-  * Run program and time.
+  * Run program and time,
   */
-float timed_program()
+float timed_program(bool is_debug_mode)
 {
 
-    clock_t start, end, elapsed;
-    start = clock();
+    const clock_t start = clock();
 
-    program();
+    program(is_debug_mode, 10000, 100); // run the program and time it
 
-    end = clock();
-    elapsed = end - start;
+    const clock_t end = clock();
 
-    return ((float)elapsed) / CLOCKS_PER_SEC;
+    const clock_t elapsed = end - start;
+
+    return ((float)elapsed) / CLOCKS_PER_SEC; 
 }
-
+ 
 // ----- Application entry
-
+ 
 /**
   * Run program
   */
-int main()
-{
+int main() 
+{   bool IS_DEBUG = true;
     try {
-        print_timed_program_result(timed_program());
+        print_program_result(timed_program(IS_DEBUG));
     }
     catch (...) {
         print_program_error_message();

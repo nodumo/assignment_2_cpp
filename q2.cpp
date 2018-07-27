@@ -42,45 +42,50 @@
  TEST PLAN
  
  Normal case:
- 	>What is your name? Richard
- 	>What is your age? 21
- 	>Hello! My name is Richard, and I am 21 years old!
- 	>In 10 years, I will be 31 years old!
+ 	>   Hen constructor called.
+        Nest constructor called.
+        Hen constructor called.
+        Hen display called.
+        Nest display called.
+        Hen display called.
+        Hen destructor called.
+        Nest destructor called.
+        Hen destructor called.
+        
+ Bad Data case 2 (delete hen variable, not pointer'delete hen')
+ 	> 
+    *** Error in `./main': double free or corruption (out): 0x00007ffd9b96b940 ***
+    ======= Backtrace: =========
+    /lib/x86_64-linux-gnu/libc.so.6(+0x777e5)[0x7f89a42877e5]
+    /lib/x86_64-linux-gnu/libc.so.6(+0x8037a)[0x7f89a429037a]
+    /lib/x86_64-linux-gnu/libc.so.6(cfree+0x4c)[0x7f89a429453c]
+    ./main[0x40104c]
+    ./main[0x4010d6]
+    /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf0)[0x7f89a4230830]
+    ./main[0x400c19]
+    ======= Memory map: ========
+    00400000-00402000 r-xp 00000000 08:05 16287602                           
+    00601000-00602000 r--p 00001000 08:05 16287602    
 
- Bad Data case 1 (more than one name)
- 	>What is your name? Richard Huntrods
- 	>What is your age? 21
- 	>Hello! My name is Richard, and I am 21 years old!
- 	>In 10 years, I will be 31 years old!
- 
- Bad Data case 2 (nonsense or non-alpha name)
- 	>What is your name? zb23xx!
- 	>What is your age? 21
- 	>Hello! My name is zb23xx!, and I am 21 years old!
- 	>In 10 years, I will be 31 years old!
- 
- Bad Data case 3 (negative age)
- 	>What is your name? Richard
- 	>What is your age? -1
- 	>Hello! My name is Richard, and I am -1 years old!
- 	>In 10 years, I will be 9 years old!
- 
- Bad Data case 4 (floating point age)
- 	>What is your name? Richard
- 	>What is your age? 12.5
- 	>Hello! My name is Richard, and I am 12 years old!
- 	>In 10 years, I will be 22 years old!
- 
  Discussion:
- 	The program accepts only a single word for the name input (whitespace delimits the word - comma, space, period, etc.)
- 	The program also attempts to convert the age input into an integer, even if this produces a nonsense result (i.e. 'five').
- 	Negative numbers are allowed and processed as if legitimate, and floating point numbers are truncated.
- 
+ 	Implemented nesting doll style classes. Each class is nested within another. 
+    Implemented a program function to run application logic for question 2.  
+    Implemented a main method to call program method. 
+
+    Classes create nested scopes as they are embedded. This requires using special syntax to access nested scopes.
+    Classes all have an internal name.
+    Classes all have constructors and destructors that use the nested class name.
+
+    The delete method was the most challenging pointers and references in C++ are a challenging concept to grasp.
+    C++ accesor rules are not easy to understand and thus require some patience.
+
+    To debug use the utility method to halt executiomn. This way you can see the delete method executed and the destructor
+    run before the program exits. This is not neccesary for the program source but I wanted to be transparent.
 */
 
 #include <iostream>
+#include <unistd.h>
 
-using std;
 using std::cout; // use for control output to a stream buffer
 using std::cin; // use standard input stream
 using std::endl; // use standard end line
@@ -195,32 +200,50 @@ public:
 
 // ----- Program definition
 
+
+/**
+  * Hand the program to debug program.
+  * Hangs the program so the user can debug the program's execution.
+  * C++ executes so fast that to debug execution you need to halt progress.
+  */
+void hang_program_to_debug()
+{
+    sleep(5);
+}
+
+
 /**
   * Question 2 program.
   */
-void program()
+void program(bool is_debug)
 { 
 
     // instantiate classes
-    Hen hen;
-    Hen::Nest nest;
-    Hen::Nest::Egg egg;
+    Hen* hen = new Hen;
+    Hen::Nest* nest = new Hen::Nest;
+    Hen::Nest::Egg* egg = new Hen::Nest::Egg;
+
 
     // run display methods
-    hen.display();
-    nest.display();
-    egg.display();
+    hen->display();
+    nest->display();
+    egg->display(); 
 
-   
+    delete hen;
+    delete nest;
+    delete egg;
+    
+    if(is_debug)hang_program_to_debug();
+
 }
 
 // ----- Application entry 
-
+ 
 /**
   * Run program
   */
 int main()
 {
-    program(); 
+    program(true); 
     return 0;
 }

@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     
+    "watch": "run-when-changed --watch '*.cpp' --exec 'g++ test.cpp -o main && ./main'",
+
     "watch1": "run-when-changed --watch '*.cpp' --exec 'g++ q1.cpp -o main && ./main'",
     "watch2": "run-when-changed --watch '*.cpp' --exec 'g++ q2.cpp -o main && ./main'",
     "watch3": "run-when-changed --watch '*.cpp' --exec 'g++ q3.cpp -o main && ./main'",

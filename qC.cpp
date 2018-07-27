@@ -18,7 +18,7 @@
     operator to print point values and the + and – operators to add and subtract
     point coordinates (hint: keep x and y separate In the calculation). 
 
-    b. Create a base class Shape which will form the basis of your shapes. The Shape
+    b. Create a base class shape which will form the basis of your shapes. The shape
     class will contain functions to calculate area and circumference of the shape,
     plus provide the coordinates (Points) of a rectangle that encloses the shape (a
     bounding box). These will be overloaded by the derived classes as necessary.
@@ -33,10 +33,10 @@
  
  Classes: 
     Point - Point unit.
-    Shape - Ubstract class.
-    Circle - Specialized shape.
-    Square - Specialized shape.
-    Triangle - Specialized shape.
+    shape - Ubstract class.
+    circle- Specialized shape.
+    square - Specialized shape.
+    triangle - Specialized shape.
 
  Functions:
     program (string -> ) Application method
@@ -165,13 +165,13 @@ Point Point::operator>>(Point& pt)
 };
 /**
   * Question B
-  * Shape value.
+  * shape value.
   */
-class Shape {
+class shape {
     // ---- Private
 private:
     /**
-      * Shape name  
+      * shape name  
       */
     string SHAPE_NAME;
 
@@ -196,29 +196,29 @@ public:
     }
 };
 
-class Rectangle : public Shape {
+class rectangle : public shape {
     // ---- Private
 private: 
     // ---- Public
 public:
     /**
-      *  Shape constructor.
+      *  shape constructor.
       *  @param p1 - Point 1.  
       *  @param p2 - Point 2.  
       *  @param p3 - Point 3.   
       *  @param p4 - Point 4. 
       */
-    Rectangle(Point p1, Point p2, Point p3, Point p4)
+    rectangle(Point p1, Point p2, Point p3, Point p4)
     {
-        string SHAPE_NAME = "Rectangle";
+        string SHAPE_NAME = "rectangle";
     }
 
     /**
-      *  Shape destructor.
+      *  shape destructor.
       *  @param xValue - X value.  
       *  @param yValue - Y value. 
       */
-    ~Rectangle()
+    ~rectangle()
     {
     }
 
@@ -227,36 +227,36 @@ public:
       *  @param xValue - X value.  
       *  @param yValue - Y value. 
       */
-    int isValidRectangle(Point a, Point b, Point c, Point d)
+    int isValidrectangle(Point a, Point b, Point c, Point d)
     {
         return isOrthogonal(a, b, c) && isOrthogonal(b, c, d) && isOrthogonal(c, d, a);
     }
 };
 
 
-class Triangle : public Shape {  
+class triangle : public shape {  
     // ---- Private
 private: 
     // ---- Public
 public:
     /**
-      *  Shape constructor.
+      *  shape constructor.
       *  @param p1 - Point 1.  
       *  @param p2 - Point 2.  
       *  @param p3 - Point 3.   
       *  @param p4 - Point 4. 
       */
-    Triangle(Point p1, Point p2, Point p3, Point p4)
+    triangle(Point p1, Point p2, Point p3, Point p4)
     {
-        string SHAPE_NAME = "Triangle";
+        string SHAPE_NAME = "triangle";
     }
 
     /**
-      *  Shape destructor.
+      *  shape destructor.
       *  @param xValue - X value.  
       *  @param yValue - Y value. 
       */
-    ~Triangle()
+    ~triangle()
     {
     }
 
@@ -265,36 +265,36 @@ public:
       *  @param xValue - X value.  
       *  @param yValue - Y value. 
       */
-    int isValidTriangle(Point a, Point b, Point c, Point d)
+    int isValidtriangle(Point a, Point b, Point c, Point d)
     {
         return isOrthogonal(a, b, c) && isOrthogonal(b, c, d) && isOrthogonal(c, d, a);
     }
 };
 
 
-class Circle : public Shape {
+class circle: public shape {
     // ---- Private
 private: 
     // ---- Public
 public:
     /**
-      *  Shape constructor.
+      *  shape constructor.
       *  @param p1 - Point 1.  
       *  @param p2 - Point 2.  
       *  @param p3 - Point 3.   
       *  @param p4 - Point 4. 
       */
-    Circle(Point p1, Point p2, Point p3, Point p4)
+    circle(Point p1, Point p2, Point p3, Point p4)
     {
-        string SHAPE_NAME = "Circle";
+       // string SHAPE_NAME = "circle";
     }
 
     /**
-      *  Shape destructor.
+      *  shape destructor.
       *  @param xValue - X value.  
       *  @param yValue - Y value. 
       */
-    ~Circle()
+    ~circle()
     {
     }
 
@@ -328,9 +328,10 @@ void program()
 int main()
 {   
     try {
+
         program();
     }
     catch (...) {
     }
 }
-
+ 
